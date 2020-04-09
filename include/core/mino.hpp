@@ -2,7 +2,7 @@
 #define TETRIS_CORE_MINO_HPP_
 
 
-#include "core/color.hpp"
+#include "core/color_t.hpp"
 
 
 namespace tetris {
