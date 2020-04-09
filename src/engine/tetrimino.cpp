@@ -1,11 +1,14 @@
-#include "core/tetrimino.hpp"
+#include "engine/tetrimino.hpp"
 
 #include "core/tetrimino_data.hpp"
 
 
 namespace tetris {
-namespace core {
+namespace engine {
 
+
+
+using namespace tetris::core;
 
 
 tetrimino::tetrimino(tetrimino_t t): type(t) {
@@ -93,5 +96,5 @@ void tetrimino::rotate(rotation::direction dir) noexcept {
 
 
 
-} // namespace core
+} // namespace engine
 } // namespace tetris

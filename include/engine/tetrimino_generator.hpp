@@ -5,7 +5,7 @@
 #include <random>
 #include <chrono>
 
-#include "core/tetrimino.hpp"
+#include "engine/tetrimino.hpp"
 
 
 namespace tetris {
@@ -18,11 +18,11 @@ class tetrimino_generator {
   public:
     tetrimino_generator(int = std::chrono::steady_clock::now().time_since_epoch().count());
 
-    std::array<core::tetrimino::tetrimino_t, 7> generate();
+    std::array<tetrimino::tetrimino_t, 7> generate();
 
   private:
     std::mt19937 rng;
-    std::array<core::tetrimino::tetrimino_t, 7> tetrimino_array;
+    std::array<tetrimino::tetrimino_t, 7> tetrimino_array;
 };
 
 
