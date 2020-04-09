@@ -14,7 +14,7 @@ namespace tetris {
 namespace gfx {
 
 
-namespace priv {
+namespace _priv {
 
 // We need to provide this destroyer to the unique_ptr template,
 // because GLFWwindow cannot be destroyed with `delete`.
@@ -24,7 +24,8 @@ struct glfw_window_destroyer {
     }
 };
 
-} // namespace priv
+} // namespace _priv
+
 
 
 class gl_context;
@@ -59,7 +60,7 @@ class render_window {
 
 
   private:
-    using glfw_pointer = std::unique_ptr<GLFWwindow, priv::glfw_window_destroyer>;
+    using glfw_pointer = std::unique_ptr<GLFWwindow, _priv::glfw_window_destroyer>;
     glfw_pointer window_impl;
 };
 

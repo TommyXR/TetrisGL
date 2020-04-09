@@ -2,14 +2,17 @@
 #define TETRIS_CORE_MINO_HPP_
 
 
+#include "core/color.hpp"
+
+
 namespace tetris {
 namespace core {
 
 
 
-class mino {
-  public:
-  private:
+struct mino {
+
+    color color;
 };
 
 
