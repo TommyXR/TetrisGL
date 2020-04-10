@@ -208,7 +208,7 @@ core::position_t const O_startpos{0, 3};
 core::color_t const O_color{1, 0.87, 0.15};
 
 
-engine::tetrimino::rotation_array const S_rotations{S_r0, S_r0, S_r0, S_r0};
+engine::tetrimino::rotation_array const S_rotations{S_r0, S_r1, S_r2, S_r3};
 core::position_t const S_startpos{0, 3};
 core::color_t const S_color{0.45, 0.72, 0.24};
 

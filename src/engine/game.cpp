@@ -18,6 +18,10 @@ void game::update(std::chrono::nanoseconds dt) {
     }
 }
 
+void game::handle_inputs(core::keyboard const& keyboard) {
+    current_phase->handle_inputs(keyboard);
+}
+
 
 void game::start() {
     current_phase = std::make_unique<generation_phase>(*this);

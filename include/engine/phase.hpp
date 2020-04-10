@@ -5,6 +5,8 @@
 #include <optional>
 #include <chrono>
 
+#include "core/keyboard.hpp"
+
 
 namespace tetris {
 namespace engine {
@@ -23,6 +25,10 @@ class phase {
     virtual void enter() = 0;
     virtual void exit() = 0;
     virtual std::optional<pointer> update(std::chrono::nanoseconds) = 0;
+
+    virtual void handle_inputs(core::keyboard const&) {
+        // Defaults to doing nothing since not every phase needs to handle inputs
+    }
 
 
 

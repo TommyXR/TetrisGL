@@ -5,6 +5,7 @@
 #include <chrono>
 
 #include "engine/phase.hpp"
+#include "core/keyboard.hpp"
 
 
 namespace tetris {
@@ -24,6 +25,7 @@ class falling_phase: public phase {
     void exit() override;
 
     std::optional<phase::pointer> update(std::chrono::nanoseconds) override;
+    void handle_inputs(core::keyboard const&) override;
 
 
   private:
@@ -33,6 +35,7 @@ class falling_phase: public phase {
     std::chrono::nanoseconds lockdown_timer{0};
 
     stage current_stage{stage::free};
+    bool fast_falling{false};
 };
 
 

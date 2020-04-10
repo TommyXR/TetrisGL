@@ -11,6 +11,11 @@
 
 
 namespace tetris {
+
+namespace core {
+class keyboard;
+}
+
 namespace gfx {
 
 
@@ -39,6 +44,8 @@ class render_window {
         std::size_t width;
         std::string name;
     };
+
+    friend class tetris::core::keyboard;
 
     render_window(gl_context const&, properties);
     ~render_window();

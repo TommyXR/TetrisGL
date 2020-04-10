@@ -8,7 +8,7 @@
 #include "engine/tetrimino_generator.hpp"
 #include "engine/phase.hpp"
 #include "engine/frame.hpp"
-
+#include "core/keyboard.hpp"
 
 namespace tetris {
 namespace engine {
@@ -25,6 +25,8 @@ class game {
     game() = default;
 
     void update(std::chrono::nanoseconds);
+    void handle_inputs(core::keyboard const&);
+
 
     void start();
     bool running() const noexcept;

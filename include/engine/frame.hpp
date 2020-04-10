@@ -6,6 +6,7 @@
 #include <deque>
 
 #include "engine/mino.hpp"
+#include "core/rotation.hpp"
 
 
 namespace tetris {
@@ -30,8 +31,10 @@ class frame {
 
     bool validate(tetrimino const&, int const = 0, int const = 0) const;
     bool can_move(tetrimino const&, direction) const;
+    bool can_rotate(tetrimino const&, core::rotation::direction) const;
 
     void place(tetrimino const&);
+    void remove_row(int);
 
     grid_t get_grid() const;
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include <array>
+#include <chrono>
 
 #include "core/color_t.hpp"
 #include "core/position_t.hpp"
@@ -38,7 +39,8 @@ class tetrimino {
     core::position_t position{0, 0};
 
     rotation_array::const_iterator current_rotation;
-
+    std::chrono::nanoseconds last_moved{0};
+    std::chrono::nanoseconds last_rotated{0};
 
   private:
     rotation_array rotations;

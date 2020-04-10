@@ -3,16 +3,19 @@
 #include <iostream>
 #include <thread>
 
+#include "core/keyboard.hpp"
+#include "engine/game.hpp"
 #include "gfx/gl_context.hpp"
 #include "gfx/render_window.hpp"
+#include <string>
 
-#include "engine/game.hpp"
 
-void draw(tetris::engine::game& g) {
+std::string draw(tetris::engine::game& g) {
     std::array<std::array<char, 10>, 24> txt{{'z'}};
 
-    auto grid = g.grid.get_grid();
+    std::string res{""};
 
+    auto grid = g.grid.get_grid();
 
     for (int i = 0; i < 24; ++i) {
         for (int j = 0; j < 10; ++j) {
@@ -26,11 +29,14 @@ void draw(tetris::engine::game& g) {
     }
 
     if (g.current_tetrimino) {
+
         auto t = *g.current_tetrimino;
         auto rot = *t.current_rotation;
 
         auto du = (int)rot.data.size();
+
         auto dv = (int)rot.data[0].size();
+
 
         for (int di = 0; di < du; ++di) {
             for (int dj = 0; dj < dv; ++dj) {
@@ -42,15 +48,18 @@ void draw(tetris::engine::game& g) {
         }
     }
 
-    std::cerr << "##########\n";
+
+    res += "##########\n";
     for (auto row: txt) {
         for (auto ch: row) {
-            std::cerr << ch;
+            res += ch;
         }
 
-        std::cerr << "\n";
+        res += "\n";
     }
-    std::cerr << "##########\n";
+    res += "##########\n";
+
+    return res;
 }
 
 
@@ -60,10 +69,10 @@ int main() {
     using namespace std::chrono_literals;
     namespace chrono = std::chrono;
 
-    chrono::milliseconds m(5);
 
     gfx::gl_context context({4, 0});
-    // gfx::render_window window(context, {800, 600, "Tetris"});
+    gfx::render_window window(context, {800, 600, "Tetris"});
+    core::keyboard keyboard(window);
 
     chrono::high_resolution_clock clock;
     engine::game game;
@@ -71,12 +80,19 @@ int main() {
     game.start();
     auto frame_begin{clock.now()};
 
+    std::string prec{""};
+
     while (game.running()) {
 
-        // handle inputs
+        window.poll_events();
+
+
+        game.handle_inputs(keyboard);
+
 
         auto const frame_end{clock.now()};
         auto const dt{chrono::duration_cast<chrono::nanoseconds>(frame_end - frame_begin)};
+
 
         game.update(dt);
 
@@ -85,6 +101,11 @@ int main() {
 
 
         // render
+        std::string curr = draw(game);
+        if (curr != prec) {
+            prec = curr;
+            std::cerr << curr;
+        }
     }
 
 

@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstdint>
 
+#include <iostream>
 
 #include "engine/tetrimino.hpp"
 
@@ -93,6 +94,16 @@ bool frame::can_move(tetrimino const& t, direction d) const {
     return validate(t, offset_i, offset_j);
 }
 
+bool frame::can_rotate(tetrimino const& tet, rotation::direction dir) const {
+
+    std::cerr << "ok1";
+    tetrimino rotated{tet};
+
+    rotated.rotate(dir);
+
+    return validate(rotated);
+}
+
 
 
 void frame::place(tetrimino const& t) {
@@ -109,6 +120,11 @@ void frame::place(tetrimino const& t) {
             }
         }
     }
+}
+
+void frame::remove_row(int idx) {
+    grid.erase(grid.begin() + idx);
+    grid.push_front({});
 }
 
 
