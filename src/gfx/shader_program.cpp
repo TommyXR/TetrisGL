@@ -1,4 +1,4 @@
-#include "shader_program.hpp"
+#include "gfx/shader_program.hpp"
 
 #include <array>
 
@@ -53,32 +53,32 @@ void shader_program::do_check_linking_error() const {
 }
 
 
-void shader_program::add_uniform(std::string_view name, bool const value) const {
+void shader_program::set_uniform(std::string_view name, bool const value) const {
     gl::glUniform1b(gl::glGetUniformLocation(id, name.data()), value);
 }
 
-void shader_program::add_uniform(std::string_view name, int const value) const {
+void shader_program::set_uniform(std::string_view name, int const value) const {
     gl::glUniform1i(gl::glGetUniformLocation(id, name.data()), value);
 }
 
-void shader_program::add_uniform(std::string_view name, float const value) const {
+void shader_program::set_uniform(std::string_view name, float const value) const {
     gl::glUniform1f(gl::glGetUniformLocation(id, name.data()), value);
 }
 
-void shader_program::add_uniform(std::string_view name, glm::vec2 const& value) const {
+void shader_program::set_uniform(std::string_view name, glm::vec2 const& value) const {
     gl::glUniform2f(gl::glGetUniformLocation(id, name.data()), value.x, value.y);
 }
 
-void shader_program::add_uniform(std::string_view name, glm::vec3 const& value) const {
+void shader_program::set_uniform(std::string_view name, glm::vec3 const& value) const {
     gl::glUniform3fv(gl::glGetUniformLocation(id, name.data()), 1, glm::value_ptr(value));
 }
 
-void shader_program::add_uniform(std::string_view name, glm::mat3 const& value) const {
+void shader_program::set_uniform(std::string_view name, glm::mat3 const& value) const {
     gl::glUniformMatrix3fv(
           gl::glGetUniformLocation(id, name.data()), 1, false, glm::value_ptr(value));
 }
 
-void shader_program::add_uniform(std::string_view name, glm::mat4 const& value) const {
+void shader_program::set_uniform(std::string_view name, glm::mat4 const& value) const {
     gl::glUniformMatrix4fv(
           gl::glGetUniformLocation(id, name.data()), 1, gl::GL_FALSE, glm::value_ptr(value));
 }

@@ -104,6 +104,8 @@ int main() {
 
         frame_begin = frame_end;
 
+        std::cerr << 10e9f / dt.count() << "fps.\n";
+
         game.render();
 
 

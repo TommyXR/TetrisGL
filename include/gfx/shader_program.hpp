@@ -8,11 +8,12 @@
 #include <glbinding/gl/gl.h>
 #include <glm/glm.hpp>
 
-#include "shader.hpp"
+#include "gfx/shader.hpp"
 
 
 
 class shader_program {
+
   public:
     shader_program();
     ~shader_program();
@@ -21,14 +22,14 @@ class shader_program {
     void add_shader(shader&);
     void compile() const;
 
-    void add_uniform(std::string_view, bool const) const;
-    void add_uniform(std::string_view, int const) const;
-    void add_uniform(std::string_view, float const) const;
-    void add_uniform(std::string_view, glm::vec2 const&) const;
-    void add_uniform(std::string_view, glm::vec3 const&) const;
-    void add_uniform(std::string_view, glm::vec4 const&) const;
-    void add_uniform(std::string_view, glm::mat3 const&) const;
-    void add_uniform(std::string_view, glm::mat4 const&) const;
+    void set_uniform(std::string_view, bool const) const;
+    void set_uniform(std::string_view, int const) const;
+    void set_uniform(std::string_view, float const) const;
+    void set_uniform(std::string_view, glm::vec2 const&) const;
+    void set_uniform(std::string_view, glm::vec3 const&) const;
+    void set_uniform(std::string_view, glm::vec4 const&) const;
+    void set_uniform(std::string_view, glm::mat3 const&) const;
+    void set_uniform(std::string_view, glm::mat4 const&) const;
 
 
   private:

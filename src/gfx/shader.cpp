@@ -1,9 +1,8 @@
-#include "shader.hpp"
+#include "gfx/shader.hpp"
 
 #include <fstream>
 #include <array>
 #include <string>
-#include <iostream>
 
 #include <glbinding/gl/gl.h>
 
@@ -51,6 +50,6 @@ void shader::do_check_compile_error() const {
 
 
         throw std::runtime_error("shader::do_compile: could not compile shader: "
-                                 + std::string(log.cbegin(), log.cbegin() + log_size));
+              + std::string(log.cbegin(), log.cbegin() + log_size));
     }
 }

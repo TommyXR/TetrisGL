@@ -29,7 +29,10 @@ render_window::render_window(gl_context const& context, properties p) {
           [](auto, auto width, auto height) { gl::glViewport(0, 0, width, height); });
 
     gl::glViewport(0, 0, p.height, p.width);
+
+    glfwMakeContextCurrent(window_impl.get());
 }
+
 
 render_window::~render_window() {
     glfwTerminate();

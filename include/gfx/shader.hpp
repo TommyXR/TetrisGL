@@ -6,6 +6,7 @@
 
 
 class shader {
+
   public:
     enum class shader_t : std::uint8_t { vertex, fragment, geometry };
 
@@ -17,7 +18,7 @@ class shader {
 
     shader_t type;
 
-  private:
+    // private:
     void do_compile() const;
     void do_check_compile_error() const;
 

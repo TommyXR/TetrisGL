@@ -46,7 +46,7 @@ std::optional<phase::pointer> falling_phase::update(std::chrono::nanoseconds dt)
 
     std::chrono::duration<long double, std::milli> time_to_fall;
     if (hard_dropping) {
-        time_to_fall = 0.0001s;
+        time_to_fall = 1ns;
     } else if (fast_falling) {
         time_to_fall = fall_speed / 20;
     } else {
@@ -86,6 +86,10 @@ void falling_phase::handle_inputs() {
 
         game_state.current_tetrimino->rotate(core::rotation::direction::clockwise);
         game_state.current_tetrimino->last_rotated = 0s;
+
+        // Maybe change this later, you can stay indefinetely on a block with a cube.
+        // (maybe check if not in air before locking)
+        lockdown_timer = 0s;
     }
 
 

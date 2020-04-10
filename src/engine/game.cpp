@@ -79,7 +79,7 @@ bool game::is_full(frame::row_t const& row) const noexcept {
 
 
 bool game::can_move(frame::direction d) const noexcept {
-    int offset_i, offset_j;
+    int offset_i{0}, offset_j{0};
 
     switch (d) {
         case frame::direction::down: {

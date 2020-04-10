@@ -8,6 +8,7 @@ namespace core {
 
 struct position_t {
     int i, j;
+    int k{0};
 };
 
 
