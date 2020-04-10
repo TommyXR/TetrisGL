@@ -9,6 +9,7 @@
 #include "engine/phase.hpp"
 #include "engine/frame.hpp"
 #include "core/keyboard.hpp"
+#include "gfx/renderer.hpp"
 
 
 namespace tetris {
@@ -22,16 +23,18 @@ class game {
     friend class generation_phase;
     friend class falling_phase;
     friend class pattern_phase;
+    friend class gfx::renderer;
 
 
-    game(core::keyboard&);
+    game(gfx::renderer&, core::keyboard&);
 
     void update(std::chrono::nanoseconds);
     void handle_inputs();
 
 
     void start();
-    void place();
+    void place_tetrimino();
+    void remove_row(int);
 
     bool running() const noexcept;
     bool can_fall() const noexcept;
@@ -51,6 +54,7 @@ class game {
     std::queue<tetrimino::tetrimino_t> next_queue;
     tetrimino_generator generator;
 
+    gfx::renderer& renderer;
     core::keyboard& keyboard;
 
     bool is_running{false};

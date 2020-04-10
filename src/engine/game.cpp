@@ -10,7 +10,7 @@ namespace engine {
 
 
 
-game::game(core::keyboard& k): keyboard(k) {}
+game::game(gfx::renderer& r, core::keyboard& k): renderer(r), keyboard(k) {}
 
 
 void game::update(std::chrono::nanoseconds dt) {
@@ -35,7 +35,7 @@ void game::start() {
     is_running = true;
 }
 
-void game::place() {
+void game::place_tetrimino() {
     for (auto i{0}; i < static_cast<int>(current_tetrimino->current_rotation->data.size()); ++i) {
         for (auto j{0};
               j < static_cast<int>(current_tetrimino->current_rotation->data.at(i).size()); ++j) {
@@ -48,6 +48,12 @@ void game::place() {
             }
         }
     }
+}
+
+
+void game::remove_row(int idx) {
+    grid.data.erase(grid.data.begin() + idx);
+    grid.data.emplace_front();
 }
 
 

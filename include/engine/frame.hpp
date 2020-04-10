@@ -27,9 +27,6 @@ struct frame {
 
     frame();
 
-    void remove_row(int);
-
-
     grid_t data;
 };
 

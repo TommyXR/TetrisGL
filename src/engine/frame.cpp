@@ -24,12 +24,6 @@ frame::frame() {
 }
 
 
-void frame::remove_row(int idx) {
-    data.erase(data.begin() + idx);
-    data.emplace_front();
-}
-
-
 
 } // namespace engine
 } // namespace tetris

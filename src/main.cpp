@@ -2,12 +2,14 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <string>
 
 #include "core/keyboard.hpp"
 #include "engine/game.hpp"
 #include "gfx/gl_context.hpp"
 #include "gfx/render_window.hpp"
-#include <string>
+#include "gfx/renderer.hpp"
+
 
 
 struct dumb_renderer {
@@ -74,11 +76,13 @@ int main() {
 
     gfx::gl_context context({4, 0});
     gfx::render_window window(context, {800, 600, "Tetris"});
+    gfx::renderer renderer(window);
     core::keyboard keyboard(window);
+
 
     chrono::high_resolution_clock clock;
 
-    engine::game game(keyboard);
+    engine::game game(renderer, keyboard);
 
     game.start();
     auto frame_begin{clock.now()};
@@ -97,7 +101,6 @@ int main() {
         auto const dt{chrono::duration_cast<chrono::nanoseconds>(frame_end - frame_begin)};
 
         game.update(dt);
-
 
         frame_begin = frame_end;
 

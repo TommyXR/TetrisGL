@@ -40,7 +40,7 @@ void pattern_phase::do_check_patterns() {
 
 void pattern_phase::do_remove_full_lines() {
     for (auto i: hit_list) {
-        game_state.grid.remove_row(i);
+        game_state.remove_row(i);
     }
 
     hit_list.clear();

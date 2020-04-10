@@ -12,6 +12,7 @@ namespace tetris {
 namespace engine {
 
 
+
 class game;
 
 class falling_phase: public phase {
@@ -38,6 +39,7 @@ class falling_phase: public phase {
 
     stage current_stage{stage::free};
     bool fast_falling{false};
+    bool hard_dropping{false};
 };
 
 
