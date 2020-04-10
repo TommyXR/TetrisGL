@@ -46,6 +46,7 @@ class render_window {
     };
 
     friend class tetris::core::keyboard;
+    friend class renderer;
 
     render_window(gl_context const&, properties);
     ~render_window();
@@ -67,6 +68,9 @@ class render_window {
 
 
   private:
+    int width{1280};
+    int height{860};
+
     using glfw_pointer = std::unique_ptr<GLFWwindow, _priv::glfw_window_destroyer>;
     glfw_pointer window_impl;
 };

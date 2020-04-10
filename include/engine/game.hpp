@@ -31,6 +31,7 @@ class game {
     void update(std::chrono::nanoseconds);
     void handle_inputs();
 
+    void render() const;
 
     void start();
     void place_tetrimino();

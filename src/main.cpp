@@ -75,8 +75,8 @@ int main() {
 
 
     gfx::gl_context context({4, 0});
-    gfx::render_window window(context, {800, 600, "Tetris"});
-    gfx::renderer renderer(window);
+    gfx::render_window window(context, {860, 1280, "Tetris"});
+    gfx::renderer renderer(context, window);
     core::keyboard keyboard(window);
 
 
@@ -89,7 +89,7 @@ int main() {
 
     std::string prec{""};
 
-    while (game.running()) {
+    while (game.running() && !window.should_close()) {
 
         window.poll_events();
 
@@ -104,8 +104,9 @@ int main() {
 
         frame_begin = frame_end;
 
+        game.render();
 
-        // render
+
         std::string curr = dumb_renderer::draw(game);
         if (curr != prec) {
             prec = curr;

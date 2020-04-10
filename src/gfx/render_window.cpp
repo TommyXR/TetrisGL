@@ -25,10 +25,8 @@ render_window::render_window(gl_context const& context, properties p) {
     window_impl =
           glfw_pointer(glfwCreateWindow(p.width, p.height, p.name.c_str(), nullptr, nullptr));
 
-    glfwSetFramebufferSizeCallback(
-          window_impl.get(), []([[maybe_unused]] auto window, auto width, auto height) {
-              gl::glViewport(0, 0, width, height);
-          });
+    glfwSetFramebufferSizeCallback(window_impl.get(),
+          [](auto, auto width, auto height) { gl::glViewport(0, 0, width, height); });
 
     gl::glViewport(0, 0, p.height, p.width);
 }

@@ -23,8 +23,14 @@ void game::update(std::chrono::nanoseconds dt) {
     }
 }
 
+
 void game::handle_inputs() {
     current_phase->handle_inputs();
+}
+
+
+void game::render() const {
+    renderer.render(*this);
 }
 
 
