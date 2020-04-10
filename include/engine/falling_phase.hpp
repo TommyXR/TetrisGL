@@ -25,7 +25,7 @@ class falling_phase: public phase {
     void exit() override;
 
     std::optional<phase::pointer> update(std::chrono::nanoseconds) override;
-    void handle_inputs(core::keyboard const&) override;
+    void handle_inputs() override;
 
 
   private:

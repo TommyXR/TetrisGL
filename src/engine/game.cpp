@@ -10,6 +10,9 @@ namespace engine {
 
 
 
+game::game(core::keyboard& k): keyboard(k) {}
+
+
 void game::update(std::chrono::nanoseconds dt) {
 
     if (auto new_phase = current_phase->update(dt); new_phase) {
@@ -20,8 +23,8 @@ void game::update(std::chrono::nanoseconds dt) {
     }
 }
 
-void game::handle_inputs(core::keyboard const& keyboard) {
-    current_phase->handle_inputs(keyboard);
+void game::handle_inputs() {
+    current_phase->handle_inputs();
 }
 
 

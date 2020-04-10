@@ -10,6 +10,7 @@
 #include "engine/frame.hpp"
 #include "core/keyboard.hpp"
 
+
 namespace tetris {
 namespace engine {
 
@@ -23,10 +24,10 @@ class game {
     friend class pattern_phase;
 
 
-    game() = default;
+    game(core::keyboard&);
 
     void update(std::chrono::nanoseconds);
-    void handle_inputs(core::keyboard const&);
+    void handle_inputs();
 
 
     void start();
@@ -49,6 +50,8 @@ class game {
 
     std::queue<tetrimino::tetrimino_t> next_queue;
     tetrimino_generator generator;
+
+    core::keyboard& keyboard;
 
     bool is_running{false};
 };

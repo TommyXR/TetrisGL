@@ -26,7 +26,7 @@ class phase {
     virtual void exit() = 0;
     virtual std::optional<pointer> update(std::chrono::nanoseconds) = 0;
 
-    virtual void handle_inputs(core::keyboard const&) {
+    virtual void handle_inputs() {
         // Defaults to doing nothing since not every phase needs to handle inputs
     }
 

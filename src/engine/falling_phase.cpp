@@ -52,16 +52,17 @@ std::optional<phase::pointer> falling_phase::update(std::chrono::nanoseconds dt)
     return {};
 }
 
-void falling_phase::handle_inputs(core::keyboard const& keyboard) {
+void falling_phase::handle_inputs() {
     using namespace std::chrono_literals;
 
-    if (keyboard.key_pressed(keyboard.down)) {
+    if (game_state.keyboard.key_pressed(game_state.keyboard.down)) {
         fast_falling = true;
     } else {
         fast_falling = false;
     }
 
-    if (keyboard.key_pressed(keyboard.up) && game_state.current_tetrimino->last_rotated > 0.15s
+    if (game_state.keyboard.key_pressed(game_state.keyboard.up)
+          && game_state.current_tetrimino->last_rotated > 0.15s
           && game_state.can_rotate(core::rotation::direction::clockwise)) {
 
         game_state.current_tetrimino->rotate(core::rotation::direction::clockwise);
@@ -71,7 +72,8 @@ void falling_phase::handle_inputs(core::keyboard const& keyboard) {
     bool moved{false};
     if (game_state.current_tetrimino->last_moved > 0.2s) {
 
-        if (keyboard.key_pressed(keyboard.left) && game_state.can_move(frame::direction::left)) {
+        if (game_state.keyboard.key_pressed(game_state.keyboard.left)
+              && game_state.can_move(frame::direction::left)) {
 
 
             game_state.current_tetrimino->position.j -= 1;
@@ -79,7 +81,8 @@ void falling_phase::handle_inputs(core::keyboard const& keyboard) {
             moved = true;
         }
 
-        if (keyboard.key_pressed(keyboard.right) && game_state.can_move(frame::direction::right)) {
+        if (game_state.keyboard.key_pressed(game_state.keyboard.right)
+              && game_state.can_move(frame::direction::right)) {
 
             game_state.current_tetrimino->position.j += 1;
             game_state.current_tetrimino->last_moved = 0ns;

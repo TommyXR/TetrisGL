@@ -77,7 +77,8 @@ int main() {
     core::keyboard keyboard(window);
 
     chrono::high_resolution_clock clock;
-    engine::game game;
+
+    engine::game game(keyboard);
 
     game.start();
     auto frame_begin{clock.now()};
@@ -89,12 +90,11 @@ int main() {
         window.poll_events();
 
 
-        game.handle_inputs(keyboard);
+        game.handle_inputs();
 
 
         auto const frame_end{clock.now()};
         auto const dt{chrono::duration_cast<chrono::nanoseconds>(frame_end - frame_begin)};
-
 
         game.update(dt);
 
