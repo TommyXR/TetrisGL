@@ -3,6 +3,7 @@
 #include <cmath>
 
 #include "engine/game.hpp"
+#include "engine/pattern_phase.hpp"
 
 
 namespace tetris {
@@ -17,20 +18,46 @@ falling_phase::falling_phase(game& g):
 
 void falling_phase::enter() {}
 
-void falling_phase::exit() {}
+void falling_phase::exit() {
+    game_state.grid.place(*game_state.current_tetrimino);
+}
 
 
 std::optional<phase::pointer> falling_phase::update(std::chrono::nanoseconds dt) {
 
+    using namespace std::chrono_literals;
+
     elapsed += dt;
+
+    if (current_stage == stage::lock) {
+        lockdown_timer += dt;
+
+        if (lockdown_timer >= 0.5s) {
+            // We place the current tetrimino then go to the pattern phase.
+            return std::make_unique<pattern_phase>(game_state); // Next phase.
+        }
+    }
+
 
     if (elapsed > fall_speed) {
 
         // Fall 1 row
         elapsed -= std::chrono::duration_cast<std::chrono::nanoseconds>(fall_speed);
+        do_fall();
     }
 
     return {};
+}
+
+
+
+void falling_phase::do_fall() {
+
+    if (game_state.can_fall()) {
+        game_state.current_tetrimino->fall();
+    } else {
+        current_stage = stage::lock;
+    }
 }
 
 

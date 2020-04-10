@@ -16,6 +16,8 @@ class game;
 class falling_phase: public phase {
 
   public:
+    enum class stage : bool { free, lock };
+
     falling_phase(game&);
 
     void enter() override;
@@ -25,7 +27,12 @@ class falling_phase: public phase {
 
 
   private:
-    std::chrono::duration<long double, std::milli> fall_speed;
+    void do_fall();
+
+    std::chrono::duration<long double, std::milli> const fall_speed;
+    std::chrono::nanoseconds lockdown_timer{0};
+
+    stage current_stage{stage::free};
 };
 
 

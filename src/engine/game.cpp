@@ -31,6 +31,10 @@ bool game::running() const noexcept {
     return is_running;
 }
 
+bool game::can_fall() const {
+    return grid.can_move(*current_tetrimino, frame::direction::down);
+}
+
 
 
 } // namespace engine

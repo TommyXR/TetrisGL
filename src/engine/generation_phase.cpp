@@ -12,7 +12,6 @@ generation_phase::generation_phase(game& g): phase(g) {}
 
 
 void generation_phase::enter() {
-
     while (game_state.next_queue.size() < 14) {
         do_generate_tetriminos();
     }
@@ -20,6 +19,8 @@ void generation_phase::enter() {
 
 
 void generation_phase::exit() {
+
+
     game_state.current_tetrimino = std::make_unique<tetrimino>(game_state.next_queue.front());
     game_state.next_queue.pop();
 }

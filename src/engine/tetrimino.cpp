@@ -2,6 +2,7 @@
 
 #include "core/tetrimino_data.hpp"
 
+#include <iostream>
 
 namespace tetris {
 namespace engine {
@@ -69,7 +70,7 @@ tetrimino::tetrimino(tetrimino_t t): type(t) {
 
 
 void tetrimino::rotate(rotation::direction dir) noexcept {
-
+    std::cerr << "ROTATING\n";
     switch (dir) {
 
         case rotation::direction::clockwise: {
@@ -92,6 +93,10 @@ void tetrimino::rotate(rotation::direction dir) noexcept {
             break;
         }
     }
+}
+
+void tetrimino::fall() noexcept {
+    position.i += 1;
 }
 
 

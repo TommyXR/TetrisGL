@@ -20,6 +20,7 @@ class game {
   public:
     friend class generation_phase;
     friend class falling_phase;
+    friend class pattern_phase;
 
     game() = default;
 
@@ -29,7 +30,9 @@ class game {
     bool running() const noexcept;
 
 
-  private:
+    // private:
+    bool can_fall() const;
+
     phase::pointer current_phase;
     tetrimino::pointer current_tetrimino;
     int level{1};

@@ -30,6 +30,7 @@ class tetrimino {
 
 
     void rotate(core::rotation::direction) noexcept;
+    void fall() noexcept;
 
 
     tetrimino_t type;
