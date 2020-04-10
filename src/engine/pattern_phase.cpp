@@ -29,11 +29,11 @@ std::optional<phase::pointer> pattern_phase::update(std::chrono::nanoseconds) {
 void pattern_phase::do_check_patterns() {
     // We only have to check for rows for now, might add new patterns later.
 
-    for (auto row_it{game_state.grid.get_grid().cbegin()};
-          row_it != game_state.grid.get_grid().cend(); ++row_it) {
+    for (auto row_it{game_state.grid.data.cbegin()}; row_it != game_state.grid.data.cend();
+          ++row_it) {
 
-        if (game_state.grid.is_full(*row_it)) {
-            hit_list.push_back(std::distance(game_state.grid.get_grid().cbegin(), row_it));
+        if (game_state.is_full(*row_it)) {
+            hit_list.push_back(std::distance(game_state.grid.data.cbegin(), row_it));
         }
     }
 }

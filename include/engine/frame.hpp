@@ -12,12 +12,13 @@
 namespace tetris {
 namespace engine {
 
+
+
 class mino;
 class tetrimino;
 
-class frame {
+struct frame {
 
-  public:
     using block_t = std::optional<mino>;
     using row_t = std::array<block_t, 10>;
     using grid_t = std::deque<row_t>;
@@ -26,22 +27,10 @@ class frame {
 
     frame();
 
-
-    bool is_full(row_t const&) const noexcept;
-
-    bool validate(tetrimino const&, int const = 0, int const = 0) const;
-    bool can_move(tetrimino const&, direction) const;
-    bool can_rotate(tetrimino const&, core::rotation::direction) const;
-
-    void place(tetrimino const&);
     void remove_row(int);
 
-    grid_t get_grid() const;
 
-
-
-  private:
-    grid_t grid;
+    grid_t data;
 };
 
 

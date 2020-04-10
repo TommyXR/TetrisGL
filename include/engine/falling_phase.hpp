@@ -33,6 +33,8 @@ class falling_phase: public phase {
 
     std::chrono::duration<long double, std::milli> const fall_speed;
     std::chrono::nanoseconds lockdown_timer{0};
+    std::chrono::nanoseconds left_press_timer{0};
+    std::chrono::nanoseconds right_press_timer{0};
 
     stage current_stage{stage::free};
     bool fast_falling{false};

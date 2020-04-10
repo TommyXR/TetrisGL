@@ -22,6 +22,7 @@ class game {
     friend class falling_phase;
     friend class pattern_phase;
 
+
     game() = default;
 
     void update(std::chrono::nanoseconds);
@@ -29,12 +30,17 @@ class game {
 
 
     void start();
+    void place();
+
     bool running() const noexcept;
+    bool can_fall() const noexcept;
+    bool is_full(frame::row_t const&) const noexcept;
+    bool can_move(frame::direction) const noexcept;
+    bool can_rotate(core::rotation::direction) const noexcept;
+    bool validate_movement(int const = 0, int const = 0) const noexcept;
 
 
     // private:
-    bool can_fall() const;
-
     phase::pointer current_phase;
     tetrimino::pointer current_tetrimino;
     int level{1};

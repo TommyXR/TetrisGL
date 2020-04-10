@@ -19,7 +19,7 @@ falling_phase::falling_phase(game& g):
 void falling_phase::enter() {}
 
 void falling_phase::exit() {
-    game_state.grid.place(*game_state.current_tetrimino);
+    game_state.place();
 }
 
 
@@ -45,7 +45,7 @@ std::optional<phase::pointer> falling_phase::update(std::chrono::nanoseconds dt)
     if (elapsed > (fast_falling ? fall_speed / 20 : fall_speed)) {
 
         // Fall 1 row
-        elapsed = 0ns;
+        elapsed = 0s;
         do_fall();
     }
 
@@ -61,9 +61,8 @@ void falling_phase::handle_inputs(core::keyboard const& keyboard) {
         fast_falling = false;
     }
 
-    if (keyboard.key_pressed(keyboard.up) && game_state.current_tetrimino->last_rotated > 0.2s
-          && game_state.grid.can_rotate(
-                *game_state.current_tetrimino, core::rotation::direction::clockwise)) {
+    if (keyboard.key_pressed(keyboard.up) && game_state.current_tetrimino->last_rotated > 0.15s
+          && game_state.can_rotate(core::rotation::direction::clockwise)) {
 
         game_state.current_tetrimino->rotate(core::rotation::direction::clockwise);
         game_state.current_tetrimino->last_rotated = 0s;
@@ -72,8 +71,7 @@ void falling_phase::handle_inputs(core::keyboard const& keyboard) {
     bool moved{false};
     if (game_state.current_tetrimino->last_moved > 0.2s) {
 
-        if (keyboard.key_pressed(keyboard.left)
-              && game_state.grid.can_move(*game_state.current_tetrimino, frame::direction::left)) {
+        if (keyboard.key_pressed(keyboard.left) && game_state.can_move(frame::direction::left)) {
 
 
             game_state.current_tetrimino->position.j -= 1;
@@ -81,8 +79,7 @@ void falling_phase::handle_inputs(core::keyboard const& keyboard) {
             moved = true;
         }
 
-        if (keyboard.key_pressed(keyboard.right)
-              && game_state.grid.can_move(*game_state.current_tetrimino, frame::direction::right)) {
+        if (keyboard.key_pressed(keyboard.right) && game_state.can_move(frame::direction::right)) {
 
             game_state.current_tetrimino->position.j += 1;
             game_state.current_tetrimino->last_moved = 0ns;
@@ -90,7 +87,7 @@ void falling_phase::handle_inputs(core::keyboard const& keyboard) {
         }
     }
 
-    if (moved && game_state.grid.can_move(*game_state.current_tetrimino, frame::direction::down)) {
+    if (moved && game_state.can_move(frame::direction::down)) {
         current_stage = stage::free;
         lockdown_timer = 0ns;
     }
