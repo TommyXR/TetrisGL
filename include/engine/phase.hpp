@@ -20,6 +20,7 @@ class phase {
     using pointer = std::unique_ptr<phase>;
 
     phase(game& g): game_state(g) {}
+    virtual ~phase() {}
 
 
     virtual void enter() = 0;
