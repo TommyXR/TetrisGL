@@ -54,7 +54,7 @@ void shader_program::do_check_linking_error() const {
 
 
 void shader_program::set_uniform(std::string_view name, bool const value) const {
-    gl::glUniform1b(gl::glGetUniformLocation(id, name.data()), value);
+    gl::glUniform1i(gl::glGetUniformLocation(id, name.data()), value);
 }
 
 void shader_program::set_uniform(std::string_view name, int const value) const {
