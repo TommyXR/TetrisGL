@@ -14,7 +14,7 @@ namespace engine {
 
 
 
-class mino;
+struct mino;
 class tetrimino;
 
 struct frame {
