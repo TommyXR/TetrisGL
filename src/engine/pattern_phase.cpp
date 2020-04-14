@@ -1,10 +1,11 @@
 #include "engine/pattern_phase.hpp"
 
 #include <iterator>
+#include <algorithm>
 
 #include "engine/game.hpp"
 #include "engine/generation_phase.hpp"
-#include <iostream>
+
 
 namespace tetris {
 namespace engine {
@@ -16,6 +17,10 @@ pattern_phase::pattern_phase(game& g): phase(g) {}
 
 void pattern_phase::enter() {
     do_check_patterns();
+
+    game_state.lines_cleared += hit_list.size();
+    game_state.level = std::max(game_state.level, std::min(game_state.lines_cleared / 10, 15));
+
     do_remove_full_lines();
 }
 

@@ -31,6 +31,13 @@ render_window::render_window(gl_context const& context, properties p) {
     gl::glViewport(0, 0, p.height, p.width);
 
     glfwMakeContextCurrent(window_impl.get());
+
+    gl::glEnable(gl::GL_DEPTH_TEST);
+    // gl::glEnable(gl::GL_CULL_FACE);
+    gl::glEnable(gl::GL_BLEND);
+    gl::glClearColor(0, 0, 0, 0);
+
+    gl::glBlendFunc(gl::GL_SRC_ALPHA, gl::GL_ONE_MINUS_SRC_ALPHA);
 }
 
 

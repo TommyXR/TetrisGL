@@ -12,61 +12,6 @@
 
 
 
-struct dumb_renderer {
-    static std::string draw(tetris::engine::game& g) {
-        std::array<std::array<char, 10>, 24> txt{{'z'}};
-
-        std::string res{""};
-
-        auto grid = g.grid.data;
-
-        for (int i = 0; i < 24; ++i) {
-            for (int j = 0; j < 10; ++j) {
-
-                if (grid[i][j]) {
-                    txt[i][j] = 'x';
-                } else {
-                    txt[i][j] = '_';
-                }
-            }
-        }
-
-        if (g.current_tetrimino) {
-
-            auto t = *g.current_tetrimino;
-            auto rot = *t.current_rotation;
-
-            auto du = (int)rot.data.size();
-
-            auto dv = (int)rot.data[0].size();
-
-
-            for (int di = 0; di < du; ++di) {
-                for (int dj = 0; dj < dv; ++dj) {
-
-                    if (rot.data[di][dj]) {
-                        txt[t.position.i + di][t.position.j + dj] = 'o';
-                    }
-                }
-            }
-        }
-
-
-        res += "##########\n";
-        for (auto row: txt) {
-            for (auto ch: row) {
-                res += ch;
-            }
-
-            res += "\n";
-        }
-        res += "##########\n";
-
-        return res;
-    }
-};
-
-
 int main() {
 
     using namespace tetris;
@@ -85,10 +30,8 @@ int main() {
     engine::game game(renderer, keyboard);
 
     game.start();
+
     auto frame_begin{clock.now()};
-
-    std::string prec{""};
-
     while (game.running() && !window.should_close()) {
 
         window.poll_events();
@@ -104,16 +47,8 @@ int main() {
 
         frame_begin = frame_end;
 
-        std::cerr << 10e9f / dt.count() << "fps.\n";
 
         game.render();
-
-
-        std::string curr = dumb_renderer::draw(game);
-        if (curr != prec) {
-            prec = curr;
-            std::cerr << curr;
-        }
     }
 
 

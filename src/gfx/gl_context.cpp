@@ -11,9 +11,6 @@ namespace gfx {
 
 gl_context::gl_context(version gl_version): gl_version(gl_version) {
     glbinding::Binding::initialize();
-
-    gl::glEnable(gl::GL_DEPTH_TEST);
-    gl::glEnable(gl::GL_CULL_FACE);
 }
 
 void gl_context::clear_buffers() const noexcept {

@@ -72,6 +72,9 @@ bool game::can_fall() const noexcept {
     return can_move(frame::direction::down);
 }
 
+bool game::can_fall(tetrimino const& t) const noexcept {
+    return validate_movement(t, 1, 0);
+}
 
 bool game::is_full(frame::row_t const& row) const noexcept {
     return std::all_of(row.cbegin(), row.cend(), [](auto const& e) { return e; });
@@ -107,14 +110,14 @@ bool game::can_move(frame::direction d) const noexcept {
         }
     }
 
-    return validate_movement(offset_i, offset_j);
+    return validate_movement(*current_tetrimino, offset_i, offset_j);
 }
 
 bool game::can_rotate(core::rotation::direction dir) const noexcept {
 
     current_tetrimino->rotate(dir);
 
-    bool can{validate_movement()};
+    bool can{validate_movement(*current_tetrimino)};
 
     current_tetrimino->rotate(static_cast<core::rotation::direction>(!static_cast<bool>(dir)));
 
@@ -123,19 +126,18 @@ bool game::can_rotate(core::rotation::direction dir) const noexcept {
 }
 
 
-bool game::validate_movement(int di, int dj) const noexcept {
-    for (auto i{0}; i < static_cast<int>(current_tetrimino->current_rotation->data.size()); ++i) {
+bool game::validate_movement(tetrimino const& t, int di, int dj) const noexcept {
+    for (auto i{0}; i < static_cast<int>(t.current_rotation->data.size()); ++i) {
 
-        for (auto j{0};
-              j < static_cast<int>(current_tetrimino->current_rotation->data.at(i).size()); ++j) {
+        for (auto j{0}; j < static_cast<int>(t.current_rotation->data.at(i).size()); ++j) {
 
             // If there is no block at that position, we skip it.
-            if (!current_tetrimino->current_rotation->data.at(i).at(j)) {
+            if (!t.current_rotation->data.at(i).at(j)) {
                 continue;
             }
 
-            auto const grid_i{i + current_tetrimino->position.i + di};
-            auto const grid_j{j + current_tetrimino->position.j + dj};
+            auto const grid_i{i + t.position.i + di};
+            auto const grid_j{j + t.position.j + dj};
 
             // Out of bounds
             if (grid_i >= static_cast<int>(grid.data.size())

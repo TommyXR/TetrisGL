@@ -9,6 +9,7 @@
 #include "gfx/camera.hpp"
 #include "gfx/shader.hpp"
 #include "gfx/shader_program.hpp"
+#include "gfx/texture.hpp"
 
 
 namespace tetris {
@@ -37,7 +38,7 @@ struct vertex_t {
 class cube_renderer {
   public:
     cube_renderer(gfx::renderer&);
-    void render(glm::vec3 const&, glm::vec3 const&);
+    void render(glm::vec3 const&, glm::vec3 const&, gl::GLenum = gl::GL_TRIANGLES) const;
 
   private:
     shader_program cube_shader;
@@ -50,6 +51,26 @@ class cube_renderer {
 };
 
 
+
+// This class is there to draw the background frame.
+class frame_renderer {
+  public:
+    frame_renderer(gfx::renderer&);
+    void render() const;
+
+  private:
+    shader_program frame_shader;
+    texture2d texture;
+
+    std::array<vertex_t, 6> vertices;
+    unsigned int vao_idx;
+    unsigned int vbo_idx;
+
+    gfx::renderer& renderer;
+};
+
+
+
 // This is the main renderer class, which holds all the informations about
 // the scene setup and is the only part of the public API.
 class renderer {
@@ -58,6 +79,7 @@ class renderer {
     renderer(gl_context&, render_window&);
 
     friend class cube_renderer;
+    friend class frame_renderer;
 
     void render(engine::game const&);
 
@@ -68,6 +90,7 @@ class renderer {
     glm::mat4 const projection;
 
     gfx::cube_renderer cube_renderer;
+    gfx::frame_renderer frame_renderer;
 
 
     gl_context& context;

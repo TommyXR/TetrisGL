@@ -39,16 +39,29 @@ class game {
 
     bool running() const noexcept;
     bool can_fall() const noexcept;
+    bool can_fall(tetrimino const&) const noexcept;
+
     bool is_full(frame::row_t const&) const noexcept;
     bool can_move(frame::direction) const noexcept;
     bool can_rotate(core::rotation::direction) const noexcept;
-    bool validate_movement(int const = 0, int const = 0) const noexcept;
+    bool validate_movement(tetrimino const&, int const = 0, int const = 0) const noexcept;
 
 
-    // private:
+  private:
+    static int constexpr FAST_FALL_MULTIPLIER{20};
+    static int constexpr AUTOREPEAT_MULTIPLIER{4};
+
+    static std::chrono::milliseconds constexpr LOCKDOWN_DELAY{500};
+    static std::chrono::milliseconds constexpr ROTATION_DELAY{150};
+    static std::chrono::milliseconds constexpr MOVE_DELAY{150};
+    static std::chrono::milliseconds constexpr AUTOREPEAT_DELAY{333};
+
+
     phase::pointer current_phase;
     tetrimino::pointer current_tetrimino;
+
     int level{1};
+    int lines_cleared{0};
 
     frame grid;
 
