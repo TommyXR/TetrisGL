@@ -10,7 +10,7 @@ LIB_D := third_party
 TESTS_D := tests
 
 
-CFLAGS := -Wall -Wextra -Wpedantic -Werror
+CFLAGS := -Wall -Wextra -Wpedantic 
 CPPFLAGS := -std=c++17 -I$(SRC_D) -I$(LIB_D) -I$(INC_D)
 LIBS := -L$(LIB_D) -lglfw -lglbinding
 
