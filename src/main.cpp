@@ -13,7 +13,7 @@
 
 
 int main() {
-
+    glfwInit();
     using namespace tetris;
     using namespace std::chrono_literals;
     namespace chrono = std::chrono;
