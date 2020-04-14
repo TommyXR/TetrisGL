@@ -13,11 +13,7 @@ grid every frame could make `vector` faster because of memory being contiguous. 
 up making a [benchmark](extras/tetris_grid_benchmark.cpp) to compare, and it turned out
 `deque` is better.
 
-### Phase map
-For the engine phases map, my first thought was to use an `unordered_map`, since I use a `phase` enum.
-However, as it turns out, the [benchmark](extras/state_container_benchmark.cpp) puts `std::array` with
-casting the enum to an `int` as the definitive winner.
-
 ### Time
-I decided to refer to time in milliseconds through the code. Most of the engine relies in
-tenth of seconds, so it is the best compromise between clarity and precision.
+At first, I was refering to time using `std::milliseconds`. However, the engine ended up being too fast for this, so
+I had to go with std::nanoseconds`
+
