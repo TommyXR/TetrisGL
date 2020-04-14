@@ -15,5 +15,5 @@ up making a [benchmark](extras/tetris_grid_benchmark.cpp) to compare, and it tur
 
 ### Time
 At first, I was refering to time using `std::milliseconds`. However, the engine ended up being too fast for this, so
-I had to go with std::nanoseconds`
+I had to go with `std::nanoseconds`
 

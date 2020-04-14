@@ -25,6 +25,7 @@ TESTS_FILES = $(shell find $(TESTS_D) -type f -name "*[!main.cpp].cpp")
 
 
 $(BIN_D)/tetris: $(SRC_D)/main.cpp $(OBJECTS)
+	@[ -d $(shell dirname $@) ] || mkdir -p $(shell dirname $@)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $^  $(LIBS)
 
 $(BIN_D)/tests: $(TESTS_D)/main.cpp $(TESTS_FILES) $(OBJECTS)
