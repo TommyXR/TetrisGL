@@ -8,6 +8,7 @@ namespace tetris {
 namespace gfx {
 
 
+class render_window;
 
 class gl_context {
 
@@ -18,6 +19,8 @@ class gl_context {
     };
 
     gl_context(version);
+
+    void link(render_window&) const;
 
     void clear_buffers() const noexcept;
 

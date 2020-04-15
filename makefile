@@ -12,7 +12,7 @@ TESTS_D := tests
 
 CFLAGS := -Wall -Wextra -Wpedantic 
 CPPFLAGS := -std=c++17 -I$(SRC_D) -I$(LIB_D) -I$(INC_D)
-LIBS := -L$(LIB_D) -lglfw -lglbinding
+LIBS := -L$(LIB_D) $(LIB_D)/glad/glad.a -lglfw -ldl
 
 
 SRC_FILES = $(shell find $(SRC_D) -type f -name "*.cpp" ! -name "*main.cpp")

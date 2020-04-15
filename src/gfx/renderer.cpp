@@ -1,6 +1,5 @@
 #include "gfx/renderer.hpp"
 
-#include <glbinding/gl/gl.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "gfx/render_window.hpp"
@@ -63,29 +62,28 @@ cube_renderer::cube_renderer(gfx::renderer& r): renderer(r) {
 
     // We generate the gpu buffer for the cube vertices.
 
-    gl::glGenVertexArrays(1, &vao_idx);
-    gl::glGenBuffers(1, &vbo_idx);
+    glGenVertexArrays(1, &vao_idx);
+    glGenBuffers(1, &vbo_idx);
 
-    gl::glBindVertexArray(vao_idx);
-    gl::glBindBuffer(gl::GL_ARRAY_BUFFER, vbo_idx);
+    glBindVertexArray(vao_idx);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_idx);
 
-    gl::glBufferData(gl::GL_ARRAY_BUFFER, sizeof(vertex_t) * vertices.size(), vertices.data(),
-          gl::GL_STATIC_DRAW);
+    glBufferData(
+          GL_ARRAY_BUFFER, sizeof(vertex_t) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
     // position attribute
-    gl::glVertexAttribPointer(
-          0, 3, gl::GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(0));
-    gl::glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(0));
+    glEnableVertexAttribArray(0);
 
     // normal attribute
-    gl::glVertexAttribPointer(
-          1, 3, gl::GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(3 * sizeof(float)));
+    glVertexAttribPointer(
+          1, 3, GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(3 * sizeof(float)));
 
-    gl::glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(1);
 
     // unbind the buffers
-    gl::glBindBuffer(gl::GL_ARRAY_BUFFER, 0);
-    gl::glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 
 
     // Finally, create the shader and prepare it.
@@ -101,8 +99,7 @@ cube_renderer::cube_renderer(gfx::renderer& r): renderer(r) {
 }
 
 
-void cube_renderer::render(
-      glm::vec3 const& position, glm::vec3 const& color, gl::GLenum type) const {
+void cube_renderer::render(glm::vec3 const& position, glm::vec3 const& color, GLenum type) const {
     cube_shader.use();
 
     glm::mat4 model(1.f);
@@ -113,8 +110,8 @@ void cube_renderer::render(
     cube_shader.set_uniform("view", renderer.camera.get_view_matrix());
 
 
-    gl::glBindVertexArray(vao_idx);
-    gl::glDrawArrays(type, 0, 36);
+    glBindVertexArray(vao_idx);
+    glDrawArrays(type, 0, 36);
 }
 
 
@@ -135,29 +132,28 @@ frame_renderer::frame_renderer(gfx::renderer& r):
 
     // We generate the gpu buffer for the cube vertices.
 
-    gl::glGenVertexArrays(1, &vao_idx);
-    gl::glGenBuffers(1, &vbo_idx);
+    glGenVertexArrays(1, &vao_idx);
+    glGenBuffers(1, &vbo_idx);
 
-    gl::glBindVertexArray(vao_idx);
-    gl::glBindBuffer(gl::GL_ARRAY_BUFFER, vbo_idx);
+    glBindVertexArray(vao_idx);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_idx);
 
-    gl::glBufferData(gl::GL_ARRAY_BUFFER, sizeof(vertex_t) * vertices.size(), vertices.data(),
-          gl::GL_STATIC_DRAW);
+    glBufferData(
+          GL_ARRAY_BUFFER, sizeof(vertex_t) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
     // position attribute
-    gl::glVertexAttribPointer(
-          0, 3, gl::GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(0));
-    gl::glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(0));
+    glEnableVertexAttribArray(0);
 
     // normal attribute
-    gl::glVertexAttribPointer(
-          1, 3, gl::GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(3 * sizeof(float)));
+    glVertexAttribPointer(
+          1, 3, GL_FLOAT, false, 6 * sizeof(float), reinterpret_cast<void*>(3 * sizeof(float)));
 
-    gl::glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(1);
 
     // unbind the buffers
-    gl::glBindBuffer(gl::GL_ARRAY_BUFFER, 0);
-    gl::glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 
 
     // Finally, create the shader and prepare it.
@@ -180,11 +176,11 @@ void frame_renderer::render() const {
 
     frame_shader.set_uniform("view", renderer.camera.get_view_matrix());
 
-    gl::glBindVertexArray(vao_idx);
-    gl::glDrawArrays(gl::GL_TRIANGLES, 0, 6);
+    glBindVertexArray(vao_idx);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
 
-    gl::glBindVertexArray(0);
+    glBindVertexArray(0);
 }
 
 
@@ -236,7 +232,7 @@ void renderer::render(engine::game const& game) {
                       mino && i + ghost.position.i > 2) {
 
                     cube_renderer.render({ghost.position.j + j - 5, 13 - i - ghost.position.i, -25},
-                          {ghost.color.r, ghost.color.g, ghost.color.b}, gl::GL_LINE_STRIP);
+                          {ghost.color.r, ghost.color.g, ghost.color.b}, GL_LINE_STRIP);
                 }
             }
         }

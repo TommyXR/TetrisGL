@@ -5,7 +5,6 @@
 #include <string>
 #include <unordered_map>
 
-#include <glbinding/gl/gl.h>
 #include <glm/glm.hpp>
 
 #include "gfx/shader.hpp"

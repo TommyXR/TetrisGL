@@ -3,9 +3,9 @@
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "glad/glad.h"
 
 #include "gfx/camera.hpp"
 #include "gfx/shader.hpp"
@@ -39,7 +39,7 @@ struct vertex_t {
 class cube_renderer {
   public:
     cube_renderer(gfx::renderer&);
-    void render(glm::vec3 const&, glm::vec3 const&, gl::GLenum = gl::GL_TRIANGLES) const;
+    void render(glm::vec3 const&, glm::vec3 const&, GLenum = GL_TRIANGLES) const;
 
   private:
     shader_program cube_shader;

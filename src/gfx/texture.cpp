@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <glbinding/gl/gl.h>
+
+#include "glad/glad.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -28,28 +29,27 @@ texture2d::texture2d(fs::path file) {
     width = w;
     height = h;
 
-    gl::glGenTextures(1, &id);
+    glGenTextures(1, &id);
 
-    gl::glBindTexture(gl::GL_TEXTURE_2D, id);
+    glBindTexture(GL_TEXTURE_2D, id);
 
-    gl::glTexParameteri(gl::GL_TEXTURE_2D, gl::GL_TEXTURE_WRAP_S, gl::GL_REPEAT);
-    gl::glTexParameteri(gl::GL_TEXTURE_2D, gl::GL_TEXTURE_WRAP_T, gl::GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    gl::glTexParameteri(gl::GL_TEXTURE_2D, gl::GL_TEXTURE_MIN_FILTER, gl::GL_LINEAR);
-    gl::glTexParameteri(gl::GL_TEXTURE_2D, gl::GL_TEXTURE_MAG_FILTER, gl::GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-    gl::glTexImage2D(gl::GL_TEXTURE_2D, 0, gl::GL_RGBA, width, height, 0, gl::GL_RGBA,
-          gl::GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 
     stbi_image_free(data);
-    gl::glBindTexture(gl::GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
 void texture2d::use() const {
-    gl::glBindTexture(gl::GL_TEXTURE_2D, id);
+    glBindTexture(GL_TEXTURE_2D, id);
 }
 
 
