@@ -1,8 +1,8 @@
 #include "gfx/render_window.hpp"
 
 #include <stdexcept>
-#include <glbinding/gl/gl.h>
 
+#include "glad/glad.h"
 #include "gfx/gl_context.hpp"
 
 
@@ -25,19 +25,21 @@ render_window::render_window(gl_context const& context, properties p) {
     window_impl =
           glfw_pointer(glfwCreateWindow(p.width, p.height, p.name.c_str(), nullptr, nullptr));
 
-    glfwSetFramebufferSizeCallback(window_impl.get(),
-          [](auto, auto width, auto height) { gl::glViewport(0, 0, width, height); });
-
-    gl::glViewport(0, 0, p.height, p.width);
-
     glfwMakeContextCurrent(window_impl.get());
 
-    gl::glEnable(gl::GL_DEPTH_TEST);
-    // gl::glEnable(gl::GL_CULL_FACE);
-    gl::glEnable(gl::GL_BLEND);
-    gl::glClearColor(0, 0, 0, 0);
+    glfwSetFramebufferSizeCallback(window_impl.get(),
+          [](auto, auto width, auto height) { glViewport(0, 0, width, height); });
 
-    gl::glBlendFunc(gl::GL_SRC_ALPHA, gl::GL_ONE_MINUS_SRC_ALPHA);
+
+    context.link(*this);
+
+
+    glEnable(GL_DEPTH_TEST);
+    // glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    glClearColor(0, 0, 0, 0);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 

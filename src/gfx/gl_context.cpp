@@ -1,7 +1,9 @@
 #include "gfx/gl_context.hpp"
 
-#include <glbinding/Binding.h>
-#include <glbinding/gl/gl.h>
+#include <stdexcept>
+
+#include "glad/glad.h"
+#include "gfx/render_window.hpp"
 
 
 namespace tetris {
@@ -9,12 +11,17 @@ namespace gfx {
 
 
 
-gl_context::gl_context(version gl_version): gl_version(gl_version) {
-    glbinding::Binding::initialize();
+gl_context::gl_context(version gl_version): gl_version(gl_version) {}
+
+void gl_context::link(render_window&) const {
+
+    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
+        throw std::runtime_error("gl_context::link: Failed to initialize GLAD");
+    }
 }
 
 void gl_context::clear_buffers() const noexcept {
-    gl::glClear(gl::GL_COLOR_BUFFER_BIT | gl::GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 } // namespace gfx
