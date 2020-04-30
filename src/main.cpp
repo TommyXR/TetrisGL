@@ -3,6 +3,7 @@
 #include <iostream>
 #include <thread>
 #include <string>
+#include <SFML/Audio.hpp>
 
 #include "core/keyboard.hpp"
 #include "engine/game.hpp"
@@ -13,10 +14,14 @@
 
 
 int main() {
-    glfwInit();
+
     using namespace tetris;
     using namespace std::chrono_literals;
     namespace chrono = std::chrono;
+
+    sf::Music music;
+    music.openFromFile("resources/audio/connected.wav");
+    music.play();
 
 
     gfx::gl_context context({4, 0});

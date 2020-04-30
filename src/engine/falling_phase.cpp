@@ -87,6 +87,14 @@ void falling_phase::handle_inputs() {
 
     using namespace std::chrono_literals;
 
+
+    if (!already_swapped_piece && game_state.keyboard.key_pressed(game_state.keyboard.C)) {
+        already_swapped_piece = true;
+
+        game_state.store_current_piece();
+    }
+
+
     if (game_state.keyboard.key_pressed(game_state.keyboard.down)) {
         fast_falling = true;
     } else {

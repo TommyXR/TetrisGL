@@ -20,9 +20,6 @@ void gl_context::link(render_window&) const {
     }
 }
 
-void gl_context::clear_buffers() const noexcept {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
 
 } // namespace gfx
 } // namespace tetris

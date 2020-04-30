@@ -193,10 +193,12 @@ renderer::renderer(gl_context& c, render_window& w):
 
 
 void renderer::render(engine::game const& game) {
-    context.clear_buffers();
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     frame_renderer.render();
 
+    // Draw current board;
     for (int i{23}; i >= 4; --i) {
         for (int j{0}; j < 10; ++j) {
 
@@ -207,6 +209,7 @@ void renderer::render(engine::game const& game) {
         }
     }
 
+    // Draw current falling tetrimino and ghost
     if (auto& t{game.current_tetrimino}; t) {
 
         for (int i = static_cast<int>(t->current_rotation->data.size()) - 1; i >= 0; --i) {
@@ -220,6 +223,7 @@ void renderer::render(engine::game const& game) {
             }
         }
 
+        // Ghost
         engine::tetrimino ghost(*t);
         while (game.can_fall(ghost)) {
             ++ghost.position.i;
@@ -234,6 +238,38 @@ void renderer::render(engine::game const& game) {
                     cube_renderer.render({ghost.position.j + j - 5, 13 - i - ghost.position.i, -25},
                           {ghost.color.r, ghost.color.g, ghost.color.b}, GL_LINE_STRIP);
                 }
+            }
+        }
+    }
+
+    // Held piece
+    if (auto t = game.held_piece; t) {
+
+        engine::tetrimino held_piece(*t);
+
+        for (int i = static_cast<int>(held_piece.current_rotation->data.size()) - 1; i >= 0; --i) {
+            for (int j = 0; j < static_cast<int>(held_piece.current_rotation->data[0].size());
+                  ++j) {
+
+                if (auto mino = held_piece.current_rotation->data[i][j]; mino) {
+
+                    cube_renderer.render({j - 12, 10 - i, -25},
+                          {held_piece.color.r, held_piece.color.g, held_piece.color.b});
+                }
+            }
+        }
+    }
+
+    // Next piece
+    engine::tetrimino next(game.next_queue.front());
+
+    for (int i = static_cast<int>(next.current_rotation->data.size()) - 1; i >= 0; --i) {
+        for (int j = 0; j < static_cast<int>(next.current_rotation->data[0].size()); ++j) {
+
+            if (auto mino = next.current_rotation->data[i][j]; mino) {
+
+                cube_renderer.render(
+                      {j + 8, 10 - i, -25}, {next.color.r, next.color.g, next.color.b});
             }
         }
     }

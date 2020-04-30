@@ -28,11 +28,12 @@ class keyboard {
         return state == GLFW_PRESS;
     }
 
-    static key constexpr left{GLFW_KEY_LEFT};
-    static key constexpr right{GLFW_KEY_RIGHT};
-    static key constexpr up{GLFW_KEY_UP};
-    static key constexpr down{GLFW_KEY_DOWN};
-    static key constexpr space{GLFW_KEY_SPACE};
+    static key constexpr left = GLFW_KEY_LEFT;
+    static key constexpr right = GLFW_KEY_RIGHT;
+    static key constexpr up = GLFW_KEY_UP;
+    static key constexpr down = GLFW_KEY_DOWN;
+    static key constexpr space = GLFW_KEY_SPACE;
+    static key constexpr C = GLFW_KEY_C;
 
   private:
     GLFWwindow* window_impl;

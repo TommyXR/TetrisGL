@@ -38,8 +38,10 @@ class falling_phase: public phase {
     std::chrono::nanoseconds right_press_timer{0};
 
     stage current_stage{stage::free};
-    bool fast_falling{false};
-    bool hard_dropping{false};
+    bool fast_falling = false;
+    bool hard_dropping = false;
+
+    bool already_swapped_piece = false;
 };
 
 

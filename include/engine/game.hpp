@@ -4,6 +4,7 @@
 
 #include <queue>
 #include <chrono>
+#include <SFML/Audio.hpp>
 
 #include "engine/tetrimino_generator.hpp"
 #include "engine/phase.hpp"
@@ -25,6 +26,9 @@ class game {
     friend class pattern_phase;
     friend class gfx::renderer;
 
+    sf::SoundBuffer sb[2];
+    sf::Sound s[2];
+
 
     game(gfx::renderer&, core::keyboard&);
 
@@ -36,6 +40,8 @@ class game {
     void start();
     void place_tetrimino();
     void remove_row(int);
+
+    void store_current_piece();
 
     bool running() const noexcept;
     bool can_fall() const noexcept;
@@ -60,12 +66,16 @@ class game {
     phase::pointer current_phase;
     tetrimino::pointer current_tetrimino;
 
-    int level{1};
-    int lines_cleared{0};
+
+    int level = 1;
+    int lines_cleared = 0;
 
     frame grid;
 
     std::queue<tetrimino::tetrimino_t> next_queue;
+    std::optional<tetrimino::tetrimino_t> held_piece;
+
+
     tetrimino_generator generator;
 
     gfx::renderer& renderer;

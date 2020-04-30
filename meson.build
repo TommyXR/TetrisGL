@@ -16,6 +16,7 @@ subdir('third_party')
 
 deps += dependency('glfw3')
 deps += dependency('glad', fallback: ['glad', 'glad_dep'])
+deps += dependency('sfml-audio')
 
 
 executable('tetrisgl',
