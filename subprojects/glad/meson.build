@@ -7,8 +7,7 @@ inc = include_directories('include')
 # See /meson.build
 glad_lib = library('glad',
     'src/glad.c',
-    include_directories: inc,
-    link_args: '-ldl')
+    include_directories: inc)
 
 
 glad_dep = declare_dependency(
